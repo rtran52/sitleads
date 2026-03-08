@@ -155,8 +155,78 @@ const saveCopyToSupabase = async (business: any, copy: any) => {
   }
 };
 
+const logOutreach = async (business: any, method: string, status: string) => {
+  try {
+    await fetch('/api/outreach', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ business, method, status, notes: '' }),
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const OUTREACH_STATUS_COLORS: Record<string, string> = {
+  sent: "#6366f1", replied: "#10b981", closed: "#f59e0b", skipped: "#ef4444", drafted: "#64748b"
+};
+
+function OutreachLog() {
+  const [log, setLog] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useState(() => {
+    fetch('/api/outreach')
+      .then(r => r.json())
+      .then(d => { setLog(d.outreach || []); setLoading(false); });
+  });
+
+  return (
+    <div>
+      <h2 style={{ fontSize:22, fontWeight:800, color:"#fff", margin:"0 0 4px" }}>Outreach Log</h2>
+      <p style={{ color:"#64748b", fontSize:14, margin:"0 0 20px" }}>{log.length} businesses contacted</p>
+      {loading && <div style={{ color:"#64748b", textAlign:"center", padding:40 }}>Loading...</div>}
+      {!loading && log.length === 0 && (
+        <div style={{ background:"#1e1e28", border:"1px dashed #ffffff15", borderRadius:16, padding:48, textAlign:"center", color:"#475569" }}>
+          <div style={{ fontSize:32, marginBottom:10 }}>📊</div>
+          <div style={{ fontWeight:700, marginBottom:4 }}>No outreach logged yet</div>
+          <div style={{ fontSize:13 }}>Approve outreach messages to log them here</div>
+        </div>
+      )}
+      <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+        {log.map((item) => (
+          <div key={item.id} style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:14, padding:"16px 22px", display:"flex", alignItems:"center", gap:16 }}>
+            <div style={{ flex:1 }}>
+              <div style={{ fontWeight:800, color:"#fff", marginBottom:4 }}>{item.business_name}</div>
+              <div style={{ fontSize:12, color:"#64748b" }}>
+                {item.method === "email" ? "✉️ Email" : item.method === "sms" ? "💬 SMS" : "📞 Call"} · {new Date(item.created_at).toLocaleDateString()}
+              </div>
+            </div>
+            <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+              <span style={{ background:`${OUTREACH_STATUS_COLORS[item.status]}20`, color:OUTREACH_STATUS_COLORS[item.status], border:`1px solid ${OUTREACH_STATUS_COLORS[item.status]}30`, borderRadius:20, padding:"3px 12px", fontSize:12, fontWeight:700 }}>{item.status}</span>
+              <select defaultValue={item.status} onChange={async (e) => {
+                await fetch('/api/outreach', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ business: { id: item.business_place_id, name: item.business_name }, method: item.method, status: e.target.value, notes: item.notes }),
+                });
+              }} style={{ background:"#0f0f13", border:"1px solid #ffffff15", color:"#e2e8f0", borderRadius:8, padding:"5px 10px", fontSize:12, outline:"none", cursor:"pointer" }}>
+                <option value="drafted">Drafted</option>
+                <option value="sent">Sent</option>
+                <option value="replied">Replied</option>
+                <option value="closed">Closed Deal 🎉</option>
+                <option value="skipped">Skipped</option>
+              </select>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
-  const [tab, setTab] = useState<"search"|"leads">("search");
+  const [tab, setTab] = useState<"search"|"leads"|"outreach-log">("search");
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("San Luis Obispo");
   const [minRating, setMinRating] = useState(0);
@@ -377,7 +447,6 @@ export default function Home() {
         <span style={{ color:"#fff", fontWeight:700 }}>Full Website Preview — {selected.name}</span>
         <div style={{ marginLeft:"auto", display:"flex", gap:8 }}>
           <button onClick={downloadSite} style={{ background:"linear-gradient(135deg,#10b981,#059669)", color:"#fff", border:"none", borderRadius:8, padding:"7px 18px", fontSize:12, fontWeight:700, cursor:"pointer" }}>⬇️ Download HTML</button>
-          <button style={{ background:"linear-gradient(135deg,#6366f1,#8b5cf6)", color:"#fff", border:"none", borderRadius:8, padding:"7px 18px", fontSize:12, fontWeight:700, cursor:"pointer" }}>🚀 Deploy to Vercel</button>
         </div>
       </div>
       <div style={{ background:"#1e1e28", margin:24, borderRadius:16, overflow:"hidden", border:"1px solid #ffffff10" }}>
@@ -408,7 +477,7 @@ export default function Home() {
         </div>
         <div style={{ padding:28 }}>
           {approved[`${selected.id}-${outreachTab}`] && (
-            <div style={{ background:"#10b98115", border:"1px solid #10b98130", borderRadius:8, padding:"10px 16px", marginBottom:16, fontSize:13, color:"#10b981", fontWeight:600 }}>✓ Approved — Ready to send</div>
+            <div style={{ background:"#10b98115", border:"1px solid #10b98130", borderRadius:8, padding:"10px 16px", marginBottom:16, fontSize:13, color:"#10b981", fontWeight:600 }}>✓ Approved & Logged — Ready to send</div>
           )}
           {outreachTab === "email" && (
             <div>
@@ -448,9 +517,15 @@ export default function Home() {
             </div>
           )}
           <div style={{ display:"flex", gap:8, marginTop:20, paddingTop:20, borderTop:"1px solid #ffffff0a" }}>
-            <button onClick={() => setApproved(p => ({ ...p, [`${selected.id}-${outreachTab}`]: true }))} style={{ background:"linear-gradient(135deg,#10b981,#059669)", color:"#fff", border:"none", borderRadius:8, padding:"9px 20px", fontSize:13, fontWeight:700, cursor:"pointer" }}>✓ Approve</button>
+            <button onClick={async () => {
+              setApproved(p => ({ ...p, [`${selected.id}-${outreachTab}`]: true }));
+              await logOutreach(selected, outreachTab, 'sent');
+            }} style={{ background:"linear-gradient(135deg,#10b981,#059669)", color:"#fff", border:"none", borderRadius:8, padding:"9px 20px", fontSize:13, fontWeight:700, cursor:"pointer" }}>✓ Approve & Log Sent</button>
             <button style={{ background:"#ffffff0a", color:"#94a3b8", border:"1px solid #ffffff10", borderRadius:8, padding:"9px 16px", fontSize:13, cursor:"pointer" }}>✏️ Edit</button>
-            <button style={{ background:"#ef444410", color:"#ef4444", border:"1px solid #ef444420", borderRadius:8, padding:"9px 16px", fontSize:13, cursor:"pointer" }}>✗ Skip</button>
+            <button onClick={async () => {
+              await logOutreach(selected, outreachTab, 'skipped');
+              setPage("main");
+            }} style={{ background:"#ef444410", color:"#ef4444", border:"1px solid #ef444420", borderRadius:8, padding:"9px 16px", fontSize:13, cursor:"pointer" }}>✗ Skip</button>
           </div>
         </div>
       </div>
@@ -466,9 +541,9 @@ export default function Home() {
           <span style={{ fontWeight:800, fontSize:15, color:"#fff" }}>SiteLeads</span>
           <span style={{ background:"#6366f120", color:"#818cf8", fontSize:10, fontWeight:700, padding:"2px 7px", borderRadius:4 }}>BETA</span>
         </div>
-        {(["search","leads"] as const).map(t => (
+        {(["search","leads","outreach-log"] as const).map(t => (
           <button key={t} onClick={() => setTab(t)} style={{ background: tab===t ? "#ffffff0f" : "transparent", border:"none", color: tab===t ? "#fff" : "#94a3b8", padding:"6px 14px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600 }}>
-            {t === "search" ? "🔍 Lead Finder" : `📋 Saved Leads${leads.length > 0 ? ` (${leads.length})` : ""}`}
+            {t === "search" ? "🔍 Lead Finder" : t === "leads" ? `📋 Saved Leads${leads.length > 0 ? ` (${leads.length})` : ""}` : "📊 Outreach Log"}
           </button>
         ))}
       </div>
@@ -580,7 +655,9 @@ export default function Home() {
             )}
           </>
         )}
+
+        {tab === "outreach-log" && <OutreachLog />}
       </div>
-    </div> //aa
+    </div>
   );
 }
