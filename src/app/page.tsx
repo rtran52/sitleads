@@ -290,7 +290,7 @@ function OutreachLog() {
 }
 
 export default function Home() {
-  const [tab, setTab] = useState<"search"|"leads"|"outreach-log">("search");
+  const [tab, setTab] = useState<"search"|"leads"|"outreach-log"|"creator">("search");
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("San Luis Obispo");
   const [minRating, setMinRating] = useState(0);
@@ -398,9 +398,10 @@ export default function Home() {
         <span style={{fontWeight:900,fontSize:16,color:G.text,letterSpacing:-0.5}}>SiteLeads</span>
         <span style={{background:"#6366f118",color:"#818cf8",border:"1px solid #6366f130",fontSize:10,fontWeight:800,padding:"2px 8px",borderRadius:6,letterSpacing:0.5}}>BETA</span>
       </div>
-      {(["search","leads","outreach-log"] as const).map(t=>(
+      {(["search","leads","outreach-log","creator"] as const).map(t=>(
         <Btn key={t} onClick={()=>setTab(t)} style={{background:tab===t?"#ffffff0c":"transparent",border:`1px solid ${tab===t?G.border:"transparent"}`,color:tab===t?G.text:G.muted,padding:"6px 16px",borderRadius:10,fontSize:13,fontWeight:700}}>
-          {t==="search"?"🔍 Lead Finder":t==="leads"?`📋 Saved Leads${leads.length>0?` (${leads.length})`:""}` :"📊 Outreach Log"}
+          {t==="search"?"🔍 Lead Finder":t==="leads"?`📋 Saved Leads${leads.length>0?` (${leads.length})`:""}`
+           :t==="outreach-log"?"📊 Outreach Log":"👤 Creator"}
         </Btn>
       ))}
     </div>
@@ -677,6 +678,38 @@ export default function Home() {
         )}
 
         {tab==="outreach-log"&&<OutreachLog />}
+
+        {tab==="creator"&&(
+          <div className="fade-up" style={{maxWidth:600,margin:"0 auto",padding:"48px 0"}}>
+            <div style={{background:G.card,border:`1px solid ${G.border}`,borderRadius:24,padding:48,textAlign:"center"}}>
+              <div style={{width:88,height:88,borderRadius:"50%",background:"linear-gradient(135deg,#6366f1,#8b5cf6)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,fontWeight:900,color:"#fff",margin:"0 auto 24px",boxShadow:"0 8px 32px #6366f140",letterSpacing:-1}}>
+                RT
+              </div>
+              <h2 style={{fontSize:26,fontWeight:900,color:G.text,letterSpacing:-0.5,marginBottom:6}}>Ryan Tran</h2>
+              <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"#6366f115",border:"1px solid #6366f130",borderRadius:100,padding:"5px 14px",fontSize:12,fontWeight:800,color:"#818cf8",marginBottom:24}}>
+                💻 Software Engineer · San Luis Obispo, CA
+              </div>
+              <p style={{fontSize:15,color:"#94a3b8",lineHeight:1.8,fontWeight:500,marginBottom:32}}>
+                I'm a software engineer based in San Luis Obispo. I built SiteLeads to help local businesses get online fast — using AI to generate professional websites in minutes so business owners can focus on what they do best. Every business deserves a great website, and I'm on a mission to make that happen one city at a time.
+              </p>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12,marginBottom:32}}>
+                {[
+                  {icon:"⚡",label:"Built SiteLeads"},
+                  {icon:"📍",label:"San Luis Obispo"},
+                  {icon:"🚀",label:"Software Engineer"},
+                ].map(item=>(
+                  <div key={item.label} style={{background:G.surface,border:`1px solid ${G.border}`,borderRadius:14,padding:"16px 12px"}}>
+                    <div style={{fontSize:22,marginBottom:6}}>{item.icon}</div>
+                    <div style={{fontSize:12,color:G.muted,fontWeight:700}}>{item.label}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{borderTop:`1px solid ${G.border}`,paddingTop:24,fontSize:13,color:G.muted,fontWeight:600}}>
+                Built with ⚡ by Ryan Tran · SiteLeads {new Date().getFullYear()}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
