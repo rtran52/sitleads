@@ -279,8 +279,19 @@ export default function Home() {
     }
   };
 
-  const saveLead = (biz: any) => {
-    if (!leads.find(l => l.id === biz.id)) setLeads([...leads, biz]);
+  const saveLead = async (biz: any) => {
+    if (!leads.find(l => l.id === biz.id)) {
+      setLeads([...leads, biz]);
+    }
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ business: biz }),
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const openBuilder = async (biz: any) => {
