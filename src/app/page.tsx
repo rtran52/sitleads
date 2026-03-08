@@ -25,8 +25,6 @@ function generateHTML(biz: any, copy: any) {
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #fff; }
     a { text-decoration: none; }
-
-    /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
       background: #fff; border-bottom: 1px solid #e2e8f0;
@@ -34,135 +32,53 @@ function generateHTML(biz: any, copy: any) {
       justify-content: space-between; height: 64px;
     }
     .nav-logo { font-size: 20px; font-weight: 800; color: #1e293b; }
-    .nav-cta {
-      background: #6366f1; color: #fff; border: none;
-      padding: 10px 22px; border-radius: 8px; font-size: 14px;
-      font-weight: 700; cursor: pointer;
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #f8faff 0%, #ede9fe 100%);
-      padding: 96px 5% 80px; text-align: center;
-    }
-    .hero-badge {
-      display: inline-block; background: #ede9fe; color: #6d28d9;
-      border-radius: 20px; padding: 6px 16px; font-size: 12px;
-      font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;
-    }
-    .hero h1 {
-      font-size: clamp(32px, 5vw, 56px); font-weight: 900;
-      color: #0f172a; line-height: 1.15; margin-bottom: 18px;
-      letter-spacing: -1px;
-    }
-    .hero p {
-      font-size: 18px; color: #64748b; max-width: 520px;
-      margin: 0 auto 32px; line-height: 1.7;
-    }
+    .nav-cta { background: #6366f1; color: #fff; border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .hero { background: linear-gradient(135deg, #f8faff 0%, #ede9fe 100%); padding: 96px 5% 80px; text-align: center; }
+    .hero-badge { display: inline-block; background: #ede9fe; color: #6d28d9; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: #0f172a; line-height: 1.15; margin-bottom: 18px; letter-spacing: -1px; }
+    .hero p { font-size: 18px; color: #64748b; max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
     .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: #6366f1; color: #fff; border: none;
-      padding: 14px 32px; border-radius: 10px; font-size: 16px;
-      font-weight: 700; cursor: pointer;
-    }
-    .btn-secondary {
-      background: #fff; color: #475569; border: 2px solid #e2e8f0;
-      padding: 14px 28px; border-radius: 10px; font-size: 16px;
-      font-weight: 600; cursor: pointer;
-    }
-    .hero-rating {
-      margin-top: 28px; color: #f59e0b; font-size: 15px; font-weight: 600;
-    }
-
-    /* SECTIONS */
+    .btn-primary { background: #6366f1; color: #fff; border: none; padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; }
+    .btn-secondary { background: #fff; color: #475569; border: 2px solid #e2e8f0; padding: 14px 28px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .hero-rating { margin-top: 28px; color: #f59e0b; font-size: 15px; font-weight: 600; }
     section { padding: 80px 5%; }
-    .section-label {
-      font-size: 11px; font-weight: 800; letter-spacing: 2px;
-      color: #6366f1; text-transform: uppercase; margin-bottom: 10px;
-    }
+    .section-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: #6366f1; text-transform: uppercase; margin-bottom: 10px; }
     h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; color: #0f172a; margin-bottom: 16px; letter-spacing: -0.5px; }
     .section-text { font-size: 16px; color: #475569; line-height: 1.8; max-width: 640px; }
-
-    /* ABOUT */
     .about { background: #fff; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .about-image {
-      background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-      border-radius: 20px; height: 320px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 80px;
-    }
+    .about-image { background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-radius: 20px; height: 320px; display: flex; align-items: center; justify-content: center; font-size: 80px; }
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
-    .stat-card {
-      background: #f8fafc; border-radius: 12px; padding: 16px;
-      border: 1px solid #e2e8f0;
-    }
+    .stat-card { background: #f8fafc; border-radius: 12px; padding: 16px; border: 1px solid #e2e8f0; }
     .stat-number { font-size: 28px; font-weight: 900; color: #6366f1; }
     .stat-label { font-size: 13px; color: #64748b; margin-top: 2px; }
-
-    /* SERVICES */
     .services { background: #f8fafc; }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
-    .service-card {
-      background: #fff; border-radius: 14px; padding: 24px;
-      border: 1px solid #e2e8f0; text-align: center;
-    }
-    .service-icon { font-size: 32px; margin-bottom: 12px; }
-    .service-name { font-size: 15px; font-weight: 700; color: #1e293b; }
-
-    /* REVIEWS */
     .reviews { background: #fff; }
     .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 32px; }
-    .review-card {
-      background: #f8fafc; border-radius: 14px; padding: 24px;
-      border: 1px solid #e2e8f0;
-    }
+    .review-card { background: #f8fafc; border-radius: 14px; padding: 24px; border: 1px solid #e2e8f0; }
     .review-stars { color: #f59e0b; font-size: 16px; margin-bottom: 10px; }
     .review-text { font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 14px; }
     .review-author { font-size: 13px; font-weight: 700; color: #1e293b; }
-
-    /* FAQ */
     .faq { background: #f8fafc; }
     .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
     .faq-item { background: #fff; border-radius: 14px; padding: 24px; border: 1px solid #e2e8f0; }
     .faq-q { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
     .faq-a { font-size: 14px; color: #64748b; line-height: 1.7; }
-
-    /* CONTACT */
     .contact { background: linear-gradient(135deg, #1e1b4b, #312e81); color: #fff; text-align: center; }
     .contact h2 { color: #fff; margin-bottom: 12px; }
     .contact p { color: #a5b4fc; font-size: 16px; margin-bottom: 32px; }
     .contact-cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
-    .contact-card {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px; padding: 16px 24px; color: #fff; font-size: 15px; font-weight: 600;
-    }
-    .contact-btn {
-      background: #fff; color: #312e81; border: none;
-      padding: 14px 36px; border-radius: 10px; font-size: 16px;
-      font-weight: 800; cursor: pointer;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #0f172a; color: #64748b;
-      padding: 24px 5%; text-align: center; font-size: 13px;
-    }
-
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .faq-grid { grid-template-columns: 1fr; }
-      .about-image { display: none; }
-    }
+    .contact-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 24px; color: #fff; font-size: 15px; font-weight: 600; }
+    .contact-btn { background: #fff; color: #312e81; border: none; padding: 14px 36px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
+    footer { background: #0f172a; color: #64748b; padding: 24px 5%; text-align: center; font-size: 13px; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } .faq-grid { grid-template-columns: 1fr; } .about-image { display: none; } }
   </style>
 </head>
 <body>
-
   <nav>
     <div class="nav-logo">${biz.name}</div>
     <button class="nav-cta" onclick="document.querySelector('.contact').scrollIntoView({behavior:'smooth'})">${copy.cta}</button>
   </nav>
-
   <section class="hero">
     <div class="hero-badge">${biz.category} · ${biz.address.split(",")[1]?.trim() || "Local Business"}</div>
     <h1>${copy.headline}</h1>
@@ -173,7 +89,6 @@ function generateHTML(biz: any, copy: any) {
     </div>
     ${biz.rating > 0 ? `<div class="hero-rating">★★★★★ ${biz.rating} stars · ${biz.reviews} reviews on Google</div>` : ""}
   </section>
-
   <section class="about">
     <div class="about-grid">
       <div>
@@ -188,35 +103,20 @@ function generateHTML(biz: any, copy: any) {
       <div class="about-image">🏪</div>
     </div>
   </section>
-
   <section class="services">
     <div class="section-label">What We Offer</div>
     <h2>Our Services</h2>
     <p class="section-text">${copy.services}</p>
   </section>
-
   <section class="reviews">
     <div class="section-label">Customer Reviews</div>
     <h2>What People Are Saying</h2>
     <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"${copy.review1}"</p>
-        <div class="review-author">— ${copy.reviewer1}</div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"${copy.review2}"</p>
-        <div class="review-author">— ${copy.reviewer2}</div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"${copy.review3}"</p>
-        <div class="review-author">— ${copy.reviewer3}</div>
-      </div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"${copy.review1}"</p><div class="review-author">— ${copy.reviewer1}</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"${copy.review2}"</p><div class="review-author">— ${copy.reviewer2}</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"${copy.review3}"</p><div class="review-author">— ${copy.reviewer3}</div></div>
     </div>
   </section>
-
   <section class="faq">
     <div class="section-label">FAQ</div>
     <h2>Common Questions</h2>
@@ -226,7 +126,6 @@ function generateHTML(biz: any, copy: any) {
       <div class="faq-item"><div class="faq-q">${copy.faq3q}</div><div class="faq-a">${copy.faq3a}</div></div>
     </div>
   </section>
-
   <section class="contact">
     <div class="section-label" style="color:#a5b4fc">Get In Touch</div>
     <h2>Ready to Get Started?</h2>
@@ -237,14 +136,24 @@ function generateHTML(biz: any, copy: any) {
     </div>
     <button class="contact-btn" onclick="window.location.href='tel:${biz.phone}'">${copy.cta}</button>
   </section>
-
   <footer>
     <p>© ${new Date().getFullYear()} ${biz.name} · ${biz.address} · Built with SiteLeads</p>
   </footer>
-
 </body>
 </html>`;
 }
+
+const saveCopyToSupabase = async (business: any, copy: any) => {
+  try {
+    await fetch('/api/sites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ business, copy }),
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export default function Home() {
   const [tab, setTab] = useState<"search"|"leads">("search");
@@ -262,6 +171,7 @@ export default function Home() {
   const [outreachTab, setOutreachTab] = useState<"email"|"sms"|"call">("email");
   const [approved, setApproved] = useState<Record<string,boolean>>({});
   const [editingField, setEditingField] = useState<string|null>(null);
+  const [saving, setSaving] = useState(false);
 
   const search = async () => {
     setSearched(true);
@@ -280,9 +190,7 @@ export default function Home() {
   };
 
   const saveLead = async (biz: any) => {
-    if (!leads.find(l => l.id === biz.id)) {
-      setLeads([...leads, biz]);
-    }
+    if (!leads.find(l => l.id === biz.id)) setLeads([...leads, biz]);
     try {
       await fetch('/api/leads', {
         method: 'POST',
@@ -300,18 +208,45 @@ export default function Home() {
     setGenerating(true);
     setPage("builder");
     try {
+      const existing = await fetch(`/api/sites?place_id=${biz.id}`);
+      const existingData = await existing.json();
+      if (existingData.sites?.length > 0) {
+        const site = existingData.sites[0];
+        setCopy({
+          ...JSON.parse(site.html_content || '{}'),
+          headline: site.headline,
+          subheadline: site.subheadline,
+          about: site.about_copy,
+          services: site.services_copy,
+          cta: site.cta_text,
+        });
+        setGenerating(false);
+        return;
+      }
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ business: biz }),
       });
       const data = await res.json();
-      if (data.copy) setCopy(data.copy);
+      if (data.copy) {
+        setCopy(data.copy);
+        await saveCopyToSupabase(biz, data.copy);
+      }
     } catch (err) {
       console.error(err);
     } finally {
       setGenerating(false);
     }
+  };
+
+  const updateField = async (field: string, value: string) => {
+    const newCopy = { ...copy, [field]: value };
+    setCopy(newCopy);
+    setEditingField(null);
+    setSaving(true);
+    await saveCopyToSupabase(selected, newCopy);
+    setSaving(false);
   };
 
   const downloadSite = () => {
@@ -334,23 +269,62 @@ export default function Home() {
     borderBottom: outreachTab === id ? "2px solid #6366f1" : "2px solid transparent",
   } as React.CSSProperties);
 
+  const EditableField = ({ field, label, multiline = false }: { field: string; label: string; multiline?: boolean }) => (
+    <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
+        <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8 }}>{label}</div>
+        <div style={{ display:"flex", gap:6, alignItems:"center" }}>
+          {saving && editingField === field && <span style={{ fontSize:10, color:"#6366f1" }}>Saving...</span>}
+          {editingField !== field && (
+            <span onClick={() => setEditingField(field)} style={{ fontSize:11, color:"#6366f1", cursor:"pointer", background:"#6366f115", border:"1px solid #6366f130", padding:"3px 8px", borderRadius:5 }}>Edit</span>
+          )}
+        </div>
+      </div>
+      {editingField === field ? (
+        <div>
+          {multiline ? (
+            <textarea
+              defaultValue={copy[field]}
+              autoFocus
+              rows={4}
+              style={{ width:"100%", background:"#0f0f13", border:"1px solid #6366f1", color:"#e2e8f0", borderRadius:6, padding:"8px", fontSize:13, resize:"vertical", outline:"none", boxSizing:"border-box" }}
+              onBlur={e => updateField(field, e.target.value)}
+            />
+          ) : (
+            <input
+              defaultValue={copy[field]}
+              autoFocus
+              style={{ width:"100%", background:"#0f0f13", border:"1px solid #6366f1", color:"#e2e8f0", borderRadius:6, padding:"8px", fontSize:13, outline:"none", boxSizing:"border-box" }}
+              onBlur={e => updateField(field, e.target.value)}
+              onKeyDown={e => { if (e.key === "Enter") updateField(field, (e.target as HTMLInputElement).value); }}
+            />
+          )}
+          <div style={{ fontSize:11, color:"#475569", marginTop:4 }}>Click outside or press Enter to save</div>
+        </div>
+      ) : (
+        <div style={{ fontSize:13, color:"#e2e8f0", lineHeight:1.6 }}>{copy[field]}</div>
+      )}
+    </div>
+  );
+
   // ── BUILDER PAGE ──────────────────────────────────────────────
   if (page === "builder" && selected) return (
     <div style={{ background:"#0f0f13", minHeight:"100vh", color:"#e2e8f0", fontFamily:"sans-serif", padding:32 }}>
       <button onClick={() => setPage("main")} style={{ background:"#ffffff0a", border:"1px solid #ffffff10", color:"#94a3b8", borderRadius:8, padding:"6px 14px", fontSize:13, cursor:"pointer", marginBottom:24 }}>← Back</button>
       <h2 style={{ fontSize:22, fontWeight:800, color:"#fff", margin:"0 0 4px" }}>AI Website Builder — {selected.name}</h2>
-      <p style={{ color:"#64748b", margin:"0 0 24px", fontSize:13 }}>Generating a full website using Claude AI</p>
+      <p style={{ color:"#64748b", margin:"0 0 24px", fontSize:13 }}>
+        {generating ? "Generating..." : "Click any field to edit · Changes auto-save"}
+      </p>
 
       {generating ? (
         <div style={{ background:"#1e1e28", borderRadius:16, padding:64, textAlign:"center", border:"1px solid #6366f130" }}>
           <div style={{ width:48, height:48, border:"3px solid #6366f1", borderTopColor:"transparent", borderRadius:"50%", margin:"0 auto 20px", animation:"spin 0.8s linear infinite" }} />
           <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
           <div style={{ fontWeight:700, color:"#fff", fontSize:16, marginBottom:8 }}>Claude is building your website...</div>
-          <div style={{ color:"#64748b", fontSize:13 }}>Writing headlines, about section, services, reviews, FAQ, and contact</div>
+          <div style={{ color:"#64748b", fontSize:13 }}>Writing headlines, about, services, reviews, FAQ and contact</div>
         </div>
       ) : copy && (
         <>
-          {/* Action buttons */}
           <div style={{ display:"flex", gap:10, marginBottom:24, flexWrap:"wrap" }}>
             <button onClick={() => setPage("preview")} style={{ background:"linear-gradient(135deg,#6366f1,#8b5cf6)", color:"#fff", border:"none", borderRadius:8, padding:"10px 22px", fontSize:14, fontWeight:700, cursor:"pointer" }}>👁 Preview Full Site</button>
             <button onClick={downloadSite} style={{ background:"linear-gradient(135deg,#10b981,#059669)", color:"#fff", border:"none", borderRadius:8, padding:"10px 22px", fontSize:14, fontWeight:700, cursor:"pointer" }}>⬇️ Download HTML</button>
@@ -360,57 +334,12 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Copy sections */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:10 }}>
-            {[
-              ["🎯 HEADLINE", "headline", copy.headline],
-              ["📝 SUBHEADLINE", "subheadline", copy.subheadline],
-              ["📢 CALL TO ACTION", "cta", copy.cta],
-            ].map(([label, field, content]) => (
-              <div key={field} style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px" }}>
-                <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
-                {editingField === field ? (
-                  <textarea
-                    defaultValue={content}
-                    autoFocus
-                    onBlur={e => { setCopy((p: any) => ({ ...p, [field]: e.target.value })); setEditingField(null); }}
-                    style={{ width:"100%", background:"#0f0f13", border:"1px solid #6366f1", color:"#e2e8f0", borderRadius:6, padding:"8px", fontSize:13, resize:"vertical", outline:"none" }}
-                  />
-                ) : (
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:8 }}>
-                    <div style={{ fontSize:13, color:"#e2e8f0", lineHeight:1.6 }}>{content}</div>
-                    <span onClick={() => setEditingField(field)} style={{ fontSize:11, color:"#6366f1", cursor:"pointer", background:"#6366f115", border:"1px solid #6366f130", padding:"3px 8px", borderRadius:5, flexShrink:0 }}>Edit</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <EditableField field="headline" label="🎯 HEADLINE" />
+          <EditableField field="subheadline" label="📝 SUBHEADLINE" />
+          <EditableField field="cta" label="📢 CALL TO ACTION" />
+          <EditableField field="about" label="ℹ️ ABOUT SECTION" multiline />
+          <EditableField field="services" label="⚙️ SERVICES SECTION" multiline />
 
-          <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
-            <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:6 }}>ℹ️ ABOUT SECTION</div>
-            {editingField === "about" ? (
-              <textarea defaultValue={copy.about} autoFocus rows={4} onBlur={e => { setCopy((p: any) => ({ ...p, about: e.target.value })); setEditingField(null); }} style={{ width:"100%", background:"#0f0f13", border:"1px solid #6366f1", color:"#e2e8f0", borderRadius:6, padding:"8px", fontSize:13, resize:"vertical", outline:"none" }} />
-            ) : (
-              <div style={{ display:"flex", justifyContent:"space-between", gap:8 }}>
-                <div style={{ fontSize:13, color:"#e2e8f0", lineHeight:1.7 }}>{copy.about}</div>
-                <span onClick={() => setEditingField("about")} style={{ fontSize:11, color:"#6366f1", cursor:"pointer", background:"#6366f115", border:"1px solid #6366f130", padding:"3px 8px", borderRadius:5, flexShrink:0 }}>Edit</span>
-              </div>
-            )}
-          </div>
-
-          <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
-            <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:6 }}>⚙️ SERVICES SECTION</div>
-            {editingField === "services" ? (
-              <textarea defaultValue={copy.services} autoFocus rows={3} onBlur={e => { setCopy((p: any) => ({ ...p, services: e.target.value })); setEditingField(null); }} style={{ width:"100%", background:"#0f0f13", border:"1px solid #6366f1", color:"#e2e8f0", borderRadius:6, padding:"8px", fontSize:13, resize:"vertical", outline:"none" }} />
-            ) : (
-              <div style={{ display:"flex", justifyContent:"space-between", gap:8 }}>
-                <div style={{ fontSize:13, color:"#e2e8f0", lineHeight:1.7 }}>{copy.services}</div>
-                <span onClick={() => setEditingField("services")} style={{ fontSize:11, color:"#6366f1", cursor:"pointer", background:"#6366f115", border:"1px solid #6366f130", padding:"3px 8px", borderRadius:5, flexShrink:0 }}>Edit</span>
-              </div>
-            )}
-          </div>
-
-          {/* Reviews */}
           <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
             <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:10 }}>⭐ AI-GENERATED REVIEWS</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -424,7 +353,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* FAQ */}
           <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px" }}>
             <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:10 }}>❓ FAQ SECTION</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -452,7 +380,6 @@ export default function Home() {
           <button style={{ background:"linear-gradient(135deg,#6366f1,#8b5cf6)", color:"#fff", border:"none", borderRadius:8, padding:"7px 18px", fontSize:12, fontWeight:700, cursor:"pointer" }}>🚀 Deploy to Vercel</button>
         </div>
       </div>
-
       <div style={{ background:"#1e1e28", margin:24, borderRadius:16, overflow:"hidden", border:"1px solid #ffffff10" }}>
         <div style={{ background:"#16161d", padding:"10px 16px", display:"flex", alignItems:"center", gap:8, borderBottom:"1px solid #ffffff0a" }}>
           {["#ef4444","#f59e0b","#10b981"].map(c => <div key={c} style={{ width:10, height:10, borderRadius:"50%", background:c }} />)}
@@ -460,11 +387,7 @@ export default function Home() {
             {selected.name.toLowerCase().replace(/\s+/g,"")}.com
           </div>
         </div>
-        <iframe
-          srcDoc={generateHTML(selected, copy)}
-          style={{ width:"100%", height:"80vh", border:"none" }}
-          title="Website Preview"
-        />
+        <iframe srcDoc={generateHTML(selected, copy)} style={{ width:"100%", height:"80vh", border:"none" }} title="Website Preview" />
       </div>
     </div>
   );
