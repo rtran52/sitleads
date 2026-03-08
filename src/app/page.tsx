@@ -690,7 +690,7 @@ export default function Home() {
                 💻 Software Engineer · San Luis Obispo, CA
               </div>
               <p style={{fontSize:15,color:"#94a3b8",lineHeight:1.8,fontWeight:500,marginBottom:32}}>
-                I'm a software engineer based in San Luis Obispo. I built SiteLeads to help local businesses get online fast — using AI to generate professional websites in minutes so business owners can focus on what they do best. Every business deserves a great website, and I'm on a mission to make that happen one city at a time.
+                I'm a software engineer based in San Luis Obispo. I built SiteLeads to help local businesses get online fast — generate professional websites so business owners can focus on what they do best. Every business deserves a great website, and I'm on a mission to make that happen one city at a time.
               </p>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12,marginBottom:32}}>
                 {[
