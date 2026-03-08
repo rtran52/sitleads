@@ -64,27 +64,44 @@ function generateHTML(biz: any, copy: any) {
     .faq-item { background: #fff; border-radius: 14px; padding: 24px; border: 1px solid #e2e8f0; }
     .faq-q { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
     .faq-a { font-size: 14px; color: #64748b; line-height: 1.7; }
-    .contact { background: linear-gradient(135deg, #1e1b4b, #312e81); color: #fff; text-align: center; }
-    .contact h2 { color: #fff; margin-bottom: 12px; }
-    .contact p { color: #a5b4fc; font-size: 16px; margin-bottom: 32px; }
-    .contact-cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
-    .contact-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 24px; color: #fff; font-size: 15px; font-weight: 600; }
-    .contact-btn { background: #fff; color: #312e81; border: none; padding: 14px 36px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
+    .booking { background: linear-gradient(135deg, #1e1b4b, #312e81); color: #fff; }
+    .booking h2 { color: #fff; margin-bottom: 8px; }
+    .booking-sub { color: #a5b4fc; font-size: 16px; margin-bottom: 36px; }
+    .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .booking-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 10px; padding: 12px 16px; font-size: 14px; width: 100%; outline: none; font-family: inherit; }
+    .form-input::placeholder { color: rgba(255,255,255,0.4); }
+    .form-input:focus { border-color: #818cf8; background: rgba(255,255,255,0.12); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-submit { background: #fff; color: #312e81; border: none; padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer; }
+    .form-success { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 16px; color: #6ee7b7; font-weight: 600; text-align: center; }
+    .contact-info { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 20px; }
+    .contact-icon { font-size: 20px; }
+    .contact-label { font-size: 11px; color: #a5b4fc; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .contact-value { font-size: 15px; color: #fff; font-weight: 600; }
     footer { background: #0f172a; color: #64748b; padding: 24px 5%; text-align: center; font-size: 13px; }
-    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } .faq-grid { grid-template-columns: 1fr; } .about-image { display: none; } }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .about-image { display: none; }
+      .booking-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="nav-logo">${biz.name}</div>
-    <button class="nav-cta" onclick="document.querySelector('.contact').scrollIntoView({behavior:'smooth'})">${copy.cta}</button>
+    <button class="nav-cta" onclick="document.querySelector('.booking').scrollIntoView({behavior:'smooth'})">${copy.cta}</button>
   </nav>
   <section class="hero">
     <div class="hero-badge">${biz.category} · ${biz.address.split(",")[1]?.trim() || "Local Business"}</div>
     <h1>${copy.headline}</h1>
     <p>${copy.subheadline}</p>
     <div class="hero-buttons">
-      <button class="btn-primary" onclick="document.querySelector('.contact').scrollIntoView({behavior:'smooth'})">${copy.cta}</button>
+      <button class="btn-primary" onclick="document.querySelector('.booking').scrollIntoView({behavior:'smooth'})">${copy.cta}</button>
       <button class="btn-secondary" onclick="window.location.href='tel:${biz.phone}'">📞 ${biz.phone}</button>
     </div>
     ${biz.rating > 0 ? `<div class="hero-rating">★★★★★ ${biz.rating} stars · ${biz.reviews} reviews on Google</div>` : ""}
@@ -126,19 +143,71 @@ function generateHTML(biz: any, copy: any) {
       <div class="faq-item"><div class="faq-q">${copy.faq3q}</div><div class="faq-a">${copy.faq3a}</div></div>
     </div>
   </section>
-  <section class="contact">
+  <section class="booking">
     <div class="section-label" style="color:#a5b4fc">Get In Touch</div>
-    <h2>Ready to Get Started?</h2>
-    <p>${copy.subheadline}</p>
-    <div class="contact-cards">
-      <div class="contact-card">📞 ${biz.phone}</div>
-      <div class="contact-card">📍 ${biz.address}</div>
+    <h2>Book an Appointment</h2>
+    <p class="booking-sub">Fill out the form and we'll get back to you as soon as possible.</p>
+    <div class="booking-grid">
+      <div>
+        <form class="booking-form" id="bookingForm" onsubmit="submitBooking(event)">
+          <div class="form-row">
+            <input class="form-input" type="text" id="customerName" placeholder="Your Name" required />
+            <input class="form-input" type="tel" id="customerPhone" placeholder="Your Phone" />
+          </div>
+          <input class="form-input" type="email" id="customerEmail" placeholder="Your Email" required />
+          <textarea class="form-input form-textarea" id="message" placeholder="Tell us what you need..."></textarea>
+          <button type="submit" class="form-submit">${copy.cta} →</button>
+          <div id="formSuccess" class="form-success" style="display:none">✓ Thanks! We'll be in touch soon.</div>
+        </form>
+      </div>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><div class="contact-label">PHONE</div><div class="contact-value">${biz.phone}</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><div class="contact-label">ADDRESS</div><div class="contact-value">${biz.address}</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div><div class="contact-label">HOURS</div><div class="contact-value">Mon–Sat: 9am – 6pm</div></div>
+        </div>
+      </div>
     </div>
-    <button class="contact-btn" onclick="window.location.href='tel:${biz.phone}'">${copy.cta}</button>
   </section>
   <footer>
     <p>© ${new Date().getFullYear()} ${biz.name} · ${biz.address} · Built with SiteLeads</p>
   </footer>
+  <script>
+    async function submitBooking(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            business_place_id: '${biz.id}',
+            business_name: '${biz.name}',
+            customer_name: document.getElementById('customerName').value,
+            customer_email: document.getElementById('customerEmail').value,
+            customer_phone: document.getElementById('customerPhone').value,
+            message: document.getElementById('message').value,
+          })
+        });
+        document.getElementById('bookingForm').reset();
+        document.getElementById('formSuccess').style.display = 'block';
+        btn.style.display = 'none';
+      } catch(err) {
+        btn.textContent = '${copy.cta} →';
+        btn.disabled = false;
+        alert('Something went wrong. Please call us directly.');
+      }
+    }
+  </script>
 </body>
 </html>`;
 }
@@ -385,7 +454,6 @@ export default function Home() {
       <p style={{ color:"#64748b", margin:"0 0 24px", fontSize:13 }}>
         {generating ? "Generating..." : "Click any field to edit · Changes auto-save"}
       </p>
-
       {generating ? (
         <div style={{ background:"#1e1e28", borderRadius:16, padding:64, textAlign:"center", border:"1px solid #6366f130" }}>
           <div style={{ width:48, height:48, border:"3px solid #6366f1", borderTopColor:"transparent", borderRadius:"50%", margin:"0 auto 20px", animation:"spin 0.8s linear infinite" }} />
@@ -403,13 +471,11 @@ export default function Home() {
               {leads.find(l => l.id === selected.id) ? "✓ Saved" : "+ Save Lead"}
             </button>
           </div>
-
           <EditableField field="headline" label="🎯 HEADLINE" />
           <EditableField field="subheadline" label="📝 SUBHEADLINE" />
           <EditableField field="cta" label="📢 CALL TO ACTION" />
           <EditableField field="about" label="ℹ️ ABOUT SECTION" multiline />
           <EditableField field="services" label="⚙️ SERVICES SECTION" multiline />
-
           <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
             <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:10 }}>⭐ AI-GENERATED REVIEWS</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -422,8 +488,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-
-          <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px" }}>
+          <div style={{ background:"#1e1e28", border:"1px solid #ffffff0a", borderRadius:12, padding:"14px 18px", marginBottom:10 }}>
             <div style={{ fontSize:10, color:"#475569", fontWeight:700, letterSpacing:0.8, marginBottom:10 }}>❓ FAQ SECTION</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
               {[1,2,3].map(n => (
@@ -433,6 +498,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+          <div style={{ background:"#6366f115", border:"1px solid #6366f130", borderRadius:12, padding:"14px 18px" }}>
+            <div style={{ fontSize:10, color:"#818cf8", fontWeight:700, letterSpacing:0.8, marginBottom:6 }}>📋 BOOKING FORM</div>
+            <div style={{ fontSize:13, color:"#94a3b8" }}>A booking form is included in the generated website. Customer submissions save directly to your Supabase database.</div>
           </div>
         </>
       )}
@@ -547,7 +616,6 @@ export default function Home() {
           </button>
         ))}
       </div>
-
       <div style={{ maxWidth:1000, margin:"0 auto", padding:"32px 24px" }}>
         {tab === "search" && (
           <>
@@ -576,7 +644,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-
             {loading && (
               <div style={{ textAlign:"center", padding:40, color:"#64748b" }}>
                 <div style={{ width:32, height:32, border:"3px solid #6366f1", borderTopColor:"transparent", borderRadius:"50%", margin:"0 auto 12px", animation:"spin 0.8s linear infinite" }} />
@@ -584,7 +651,6 @@ export default function Home() {
                 Searching real businesses...
               </div>
             )}
-
             {searched && !loading && (
               <>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
@@ -625,7 +691,6 @@ export default function Home() {
             )}
           </>
         )}
-
         {tab === "leads" && (
           <>
             <h2 style={{ fontSize:22, fontWeight:800, color:"#fff", margin:"0 0 4px" }}>Saved Leads</h2>
@@ -655,7 +720,6 @@ export default function Home() {
             )}
           </>
         )}
-
         {tab === "outreach-log" && <OutreachLog />}
       </div>
     </div>
