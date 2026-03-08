@@ -45,5 +45,5 @@ export async function GET() {
   } catch (err) {
     console.error('Get leads error:', err);
     return Response.json({ error: err.message }, { status: 500 });
-  }
+  } //aaaa
 }
